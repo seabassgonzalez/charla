@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 function App() {
-  const servers = useMemo(
+  const initialServers = useMemo(
     () => [
       {
         id: 'aurora',
@@ -171,6 +171,7 @@ function App() {
     []
   )
 
+  const [servers, setServers] = useState(initialServers)
   const defaultMessages = useMemo(
     () => ({
       aurora: [
@@ -226,10 +227,12 @@ function App() {
   const [activeServerId, setActiveServerId] = useState(servers[0].id)
   const [activeChannelId, setActiveChannelId] = useState(servers[0].channels[0].id)
   const [messageInput, setMessageInput] = useState('')
+  const [newChannelName, setNewChannelName] = useState('')
+  const [isAddChannelOpen, setIsAddChannelOpen] = useState(false)
   const [messagesByServer, setMessagesByServer] = useState(() => {
     const initial = {}
 
-    servers.forEach((server) => {
+    initialServers.forEach((server) => {
       const stored = localStorage.getItem(`charla_messages_${server.id}`)
       initial[server.id] = stored ? JSON.parse(stored) : defaultMessages[server.id] || []
     })
@@ -273,6 +276,33 @@ function App() {
     setMessageInput('')
   }
 
+  const handleAddChannel = (event) => {
+    event.preventDefault()
+    const trimmed = newChannelName.trim().toLowerCase().replace(/\s+/g, '-')
+
+    if (!trimmed) {
+      return
+    }
+
+    const newChannel = {
+      id: `${trimmed}-${Date.now()}`,
+      name: trimmed,
+      type: 'text',
+      unread: 0,
+    }
+
+    setServers((prev) =>
+      prev.map((server) =>
+        server.id === activeServerId
+          ? { ...server, channels: [...server.channels, newChannel] }
+          : server
+      )
+    )
+    setActiveChannelId(newChannel.id)
+    setNewChannelName('')
+    setIsAddChannelOpen(false)
+  }
+
   return (
     <div className="app">
       <aside className="server-list">
@@ -306,7 +336,29 @@ function App() {
           </div>
         </div>
         <div className="channel-section">
-          <p className="section-label">Text Channels</p>
+          <div className="section-header">
+            <p className="section-label">Text Channels</p>
+            <button
+              className="icon-button"
+              type="button"
+              onClick={() => setIsAddChannelOpen((prev) => !prev)}
+              aria-label="Add text channel"
+              title="Add text channel"
+            >
+              +
+            </button>
+          </div>
+          {isAddChannelOpen && (
+            <form className="channel-add" onSubmit={handleAddChannel}>
+              <input
+                type="text"
+                value={newChannelName}
+                onChange={(event) => setNewChannelName(event.target.value)}
+                placeholder="Add text channel"
+              />
+              <button className="ghost" type="submit">Add</button>
+            </form>
+          )}
           {activeServer.channels
             .filter((channel) => channel.type === 'text')
             .map((channel) => (
