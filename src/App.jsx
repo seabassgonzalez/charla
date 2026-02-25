@@ -12,8 +12,6 @@ function App() {
           { id: 'welcome', name: 'welcome', type: 'text', unread: 2 },
           { id: 'announcements', name: 'announcements', type: 'text', unread: 0 },
           { id: 'design-chat', name: 'design-chat', type: 'text', unread: 7 },
-          { id: 'voice-lounge', name: 'voice-lounge', type: 'voice', unread: 0 },
-          { id: 'live-critiques', name: 'live-critiques', type: 'stage', unread: 0 },
         ],
         forums: [
           {
@@ -66,14 +64,14 @@ function App() {
             title: 'Design Office Hours',
             time: 'Wed 6:00 PM',
             host: 'Hosted by Jade',
-            location: 'voice-lounge',
+            location: 'design-chat',
           },
           {
             id: 'critique-night',
             title: 'Critique Night',
             time: 'Fri 8:00 PM',
             host: 'Hosted by Ezra',
-            location: 'live-critiques',
+            location: 'announcements',
           },
           {
             id: 'portfolio',
@@ -324,7 +322,6 @@ function App() {
             ))}
         </div>
         <div className="channel-section">
-          <p className="section-label">Voice + Stage</p>
           {activeServer.channels
             .filter((channel) => channel.type !== 'text')
             .map((channel) => (
