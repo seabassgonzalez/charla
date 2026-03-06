@@ -6,6 +6,78 @@
   color: #eef1f6;
 }
 
+.auth-screen {
+  min-height: 100vh;
+  background: #0f1115;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+  background: #151b28;
+  border: 1px solid #1f2738;
+  border-radius: 18px;
+  padding: 28px;
+  display: grid;
+  gap: 16px;
+}
+
+.auth-card h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.auth-warning {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px dashed #2a3144;
+  color: #d3d9e6;
+  display: grid;
+  gap: 6px;
+}
+
+.auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: #c7cfdd;
+}
+
+.auth-form input {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #2a3144;
+  background: #101521;
+  color: inherit;
+}
+
+.auth-form input::placeholder {
+  color: #6f7889;
+}
+
+.auth-toggle {
+  justify-self: start;
+}
+
+.error-text {
+  color: #fca5a5;
+  margin: 0;
+  font-size: 12px;
+}
+
+.success-text {
+  color: #86efac;
+  margin: 0;
+  font-size: 12px;
+}
+
 .server-list {
   padding: 24px 16px;
   background: #141721;
@@ -114,6 +186,21 @@
   place-items: center;
 }
 
+.icon-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.icon-button--small {
+  height: 22px;
+  width: 22px;
+  font-size: 12px;
+}
+
+.icon-button.danger {
+  color: #fca5a5;
+}
+
 .icon-button:hover {
   border-color: #5d8bff;
   color: #e7ecf7;
@@ -139,6 +226,11 @@
   color: #6f7889;
 }
 
+.empty-channel {
+  display: grid;
+  gap: 8px;
+}
+
 .section-label {
   font-size: 12px;
   text-transform: uppercase;
@@ -160,9 +252,110 @@
   cursor: pointer;
 }
 
+.channel-row__label {
+  color: #7c8597;
+  font-weight: 600;
+}
+
+.channel-row__name {
+  flex: 1;
+  text-align: left;
+}
+
+.channel-row__edit {
+  flex: 1;
+}
+
+.channel-row__edit input {
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid #2a3144;
+  background: #101521;
+  color: inherit;
+  font-size: 13px;
+}
+
+.channel-row__actions {
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.channel-row:hover .channel-row__actions,
+.channel-row.is-active .channel-row__actions {
+  opacity: 1;
+}
+
 .channel-row.is-active {
   background: #1a2030;
   border-color: #293044;
+}
+
+.role-section {
+  margin-top: 8px;
+}
+
+.role-pill {
+  background: #2a3144;
+  color: #d6dbe6;
+}
+
+.role-list {
+  display: grid;
+  gap: 10px;
+}
+
+.role-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #1f2433;
+  background: #151b28;
+}
+
+.role-user {
+  margin: 0 0 4px;
+  font-size: 12px;
+  color: #e2e7f0;
+  word-break: break-all;
+}
+
+.role-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.role-actions select,
+.role-add select {
+  background: #101521;
+  border: 1px solid #2a3144;
+  border-radius: 8px;
+  color: inherit;
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+.role-add {
+  display: grid;
+  gap: 8px;
+}
+
+.role-add input {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #2a3144;
+  background: #101521;
+  color: inherit;
+  font-size: 13px;
+}
+
+.role-add input::placeholder {
+  color: #6f7889;
 }
 
 .pill {
